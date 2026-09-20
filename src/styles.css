@@ -1,0 +1,759 @@
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+:root {
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  color: #18181b;
+  background: #f4f4f5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button {
+  font: inherit;
+}
+
+
+/* =========================================================
+   APP / THEME VARIABLES
+========================================================= */
+
+.app-shell {
+  /* ---------- LIGHT THEME ---------- */
+
+  --bg-primary: #f4f7fb;
+  --bg-secondary: #ffffff;
+
+  --card-bg: #ffffff;
+
+  --text-primary: #18181b;
+  --text-secondary: #52525b;
+  --text-muted: #71717a;
+
+  --border-color: rgba(0, 0, 0, 0.08);
+
+  --accent: #2563eb;
+  --accent-soft: rgba(37, 99, 235, 0.12);
+
+  --button-primary: #e4e4e7;
+  --button-primary-hover: #d4d4d8;
+  --button-primary-text: #18181b;
+
+  --button-secondary: #ffffff;
+  --button-secondary-hover: #f4f4f5;
+
+  --shadow: rgba(0, 0, 0, 0.12);
+
+  min-height: 100vh;
+
+  display: grid;
+  place-items: center;
+
+  gap: 28px;
+
+  padding: 60px 24px;
+
+  background:
+    radial-gradient(
+      circle at 15% 10%,
+      rgba(93, 73, 255, 0.12),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 85% 85%,
+      rgba(0, 194, 255, 0.1),
+      transparent 28%
+    ),
+    var(--bg-primary);
+
+  color: var(--text-primary);
+
+  transition:
+    background 300ms ease,
+    color 300ms ease;
+}
+
+
+/* =========================================================
+   DARK THEME
+========================================================= */
+
+.app-shell[data-theme="dark"] {
+  --bg-primary: #09090b;
+  --bg-secondary: #111113;
+
+  --card-bg: #18181b;
+
+  --text-primary: #f5f5f5;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+
+  --border-color: rgba(255, 255, 255, 0.12);
+
+  --accent: #78c8ff;
+  --accent-soft: rgba(120, 200, 255, 0.15);
+
+  --button-primary: #635bff;
+  --button-primary-hover: #7068ff;
+  --button-primary-text: #ffffff;
+
+  --button-secondary: rgba(255, 255, 255, 0.06);
+  --button-secondary-hover: rgba(255, 255, 255, 0.1);
+
+  --shadow: rgba(0, 0, 0, 0.45);
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.learning-header {
+  width: min(620px, 100%);
+  text-align: center;
+}
+
+.learning-header .kicker {
+  margin: 0 0 8px;
+
+  color: var(--accent);
+
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.learning-header h2 {
+  margin: 0;
+
+  color: var(--text-primary);
+
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  line-height: 1.1;
+
+  letter-spacing: -0.04em;
+
+  transition: color 300ms ease;
+}
+
+.learning-header > p:last-child {
+  margin: 12px 0 0;
+
+  color: var(--text-secondary);
+
+  line-height: 1.6;
+
+  transition: color 300ms ease;
+}
+
+
+/* =========================================================
+   THEME TOGGLE
+========================================================= */
+
+.theme-toggle {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  margin-top: 18px;
+
+  min-height: 42px;
+
+  padding: 9px 16px;
+
+  border: 1px solid var(--border-color);
+
+  border-radius: 999px;
+
+  background: var(--button-secondary);
+
+  color: var(--text-primary);
+
+  cursor: pointer;
+
+  transition:
+    transform 200ms ease,
+    background 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease;
+}
+
+.theme-toggle:hover {
+  transform: translateY(-2px);
+
+  background: var(--accent-soft);
+
+  border-color: var(--accent);
+}
+
+.theme-toggle:active {
+  transform: translateY(0);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+
+/* =========================================================
+   PROFILE CARD
+========================================================= */
+
+.profile-card {
+  position: relative;
+
+  width: min(100%, 590px);
+
+  padding: 36px;
+
+  background: var(--card-bg);
+
+  color: var(--text-primary);
+
+  border: 1px solid var(--border-color);
+
+  border-radius: 28px;
+
+  box-shadow:
+    0 20px 50px var(--shadow);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  transform:
+    perspective(1000px)
+    rotateX(var(--rotate-x, 0deg))
+    rotateY(var(--rotate-y, 0deg));
+
+  transform-style: preserve-3d;
+
+  transition:
+    transform 180ms ease-out,
+    background 300ms ease,
+    color 300ms ease,
+    border-color 250ms ease,
+    box-shadow 250ms ease;
+
+  will-change: transform;
+}
+
+
+/* =========================================================
+   3D DEPTH
+========================================================= */
+
+.profile-card > * {
+  transform: translateZ(20px);
+}
+
+.profile-card .avatar-wrap {
+  transform: translateZ(35px);
+}
+
+
+/* =========================================================
+   PROFILE HEADER
+========================================================= */
+
+.profile-header {
+  display: flex;
+
+  align-items: center;
+
+  gap: 18px;
+}
+
+
+/* =========================================================
+   AVATAR
+========================================================= */
+
+.avatar-wrap {
+  position: relative;
+
+  flex: 0 0 auto;
+
+  transition: filter 250ms ease;
+}
+
+.avatar {
+  display: block;
+
+  width: 100px;
+  height: 100px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+
+  border: 2px solid var(--border-color);
+
+  transition:
+    border-color 250ms ease,
+    box-shadow 250ms ease;
+}
+
+
+/* =========================================================
+   ONLINE INDICATOR
+========================================================= */
+
+.online-dot {
+  position: absolute;
+
+  right: 3px;
+  bottom: 5px;
+
+  width: 17px;
+  height: 17px;
+
+  border-radius: 50%;
+
+  background: #36d399;
+
+  border: 3px solid var(--card-bg);
+
+  transition:
+    border-color 300ms ease,
+    box-shadow 250ms ease;
+}
+
+
+/* =========================================================
+   PROFILE TEXT
+========================================================= */
+
+.eyebrow {
+  margin: 0 0 8px;
+
+  color: var(--accent);
+
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.profile-card h1 {
+  margin: 0;
+
+  color: var(--text-primary);
+
+  font-size: 1.65rem;
+  line-height: 1.15;
+
+  letter-spacing: -0.03em;
+
+  transition:
+    color 250ms ease,
+    text-shadow 250ms ease;
+}
+
+.role {
+  margin: 5px 0 0;
+
+  color: var(--text-secondary);
+
+  transition: color 300ms ease;
+}
+
+.bio {
+  margin: 24px 0 18px;
+
+  color: var(--text-secondary);
+
+  line-height: 1.7;
+
+  transition: color 300ms ease;
+}
+
+.location {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  color: var(--text-secondary);
+
+  font-size: 0.92rem;
+
+  transition: color 300ms ease;
+}
+
+
+/* =========================================================
+   LINKS
+========================================================= */
+
+.portfolio a,
+.linkedin a {
+  text-decoration: none;
+
+  font-weight: 700;
+
+  color: var(--accent);
+
+  transition:
+    color 200ms ease,
+    opacity 200ms ease;
+}
+
+.portfolio a:hover,
+.linkedin a:hover {
+  opacity: 0.8;
+}
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.stats {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 10px;
+
+  margin: 26px 0;
+
+  padding: 0;
+}
+
+.stat {
+  padding: 15px 10px;
+
+  text-align: center;
+
+  border-radius: 16px;
+
+  background: rgba(0, 0, 0, 0.035);
+
+  border: 1px solid var(--border-color);
+
+  transition:
+    background 250ms ease,
+    border-color 250ms ease,
+    transform 200ms ease;
+}
+
+.stat dt {
+  color: var(--text-muted);
+
+  font-size: 0.75rem;
+}
+
+.stat dd {
+  margin: 4px 0 0;
+
+  color: var(--text-primary);
+
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+
+/* Dark theme stats */
+
+.app-shell[data-theme="dark"] .stat {
+  background: rgba(255, 255, 255, 0.06);
+
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+
+/* =========================================================
+   CARD ACTIONS
+========================================================= */
+
+.card-actions {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 12px;
+}
+
+.card-actions button {
+  min-height: 46px;
+
+  border-radius: 13px;
+
+  cursor: pointer;
+
+  font-weight: 750;
+
+  transition:
+    transform 200ms ease,
+    opacity 200ms ease,
+    background 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease;
+}
+
+.card-actions button:hover {
+  transform: translateY(-2px);
+}
+
+.card-actions button:active {
+  transform: translateY(0);
+}
+
+.card-actions button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+
+/* =========================================================
+   PRIMARY BUTTON
+   LIGHT  → GREY BACKGROUND + DARK TEXT
+   DARK   → PURPLE BACKGROUND + WHITE TEXT
+========================================================= */
+
+.primary-button {
+  color: var(--button-primary-text);
+
+  background: var(--button-primary);
+
+  border: 1px solid transparent;
+}
+
+.primary-button:hover {
+  background: var(--button-primary-hover);
+
+  opacity: 1;
+}
+
+
+/* =========================================================
+   SECONDARY BUTTON
+========================================================= */
+
+.secondary-button {
+  background: var(--button-secondary);
+
+  color: var(--text-primary);
+
+  border: 1px solid var(--border-color);
+}
+
+.secondary-button:hover {
+  background: var(--button-secondary-hover);
+
+  border-color: var(--accent);
+
+  color: var(--accent);
+}
+
+
+/* =========================================================
+   3D CARD HOVER GLOW
+========================================================= */
+
+@media (hover: hover) and (pointer: fine) {
+
+  .profile-card {
+    cursor: pointer;
+  }
+
+
+  /* -------------------------------------------------------
+     LIGHT MODE CARD GLOW
+  ------------------------------------------------------- */
+
+  .app-shell[data-theme="light"] .profile-card:hover {
+    border-color: rgba(37, 99, 235, 0.55);
+
+    box-shadow:
+      0 0 0 1px rgba(37, 99, 235, 0.1),
+      0 0 25px rgba(37, 99, 235, 0.12),
+      0 25px 60px rgba(0, 0, 0, 0.16);
+  }
+
+
+  /* -------------------------------------------------------
+     DARK MODE CARD GLOW
+  ------------------------------------------------------- */
+
+  .app-shell[data-theme="dark"] .profile-card:hover {
+    border-color: rgba(120, 200, 255, 0.75);
+
+    box-shadow:
+      0 0 0 1px rgba(120, 200, 255, 0.2),
+      0 0 25px rgba(120, 200, 255, 0.2),
+      0 0 45px rgba(120, 200, 255, 0.12),
+      0 25px 60px rgba(0, 0, 0, 0.45);
+  }
+
+
+  /* -------------------------------------------------------
+     AVATAR GLOW
+  ------------------------------------------------------- */
+
+  .profile-card:hover .avatar {
+    border-color: var(--accent);
+
+    box-shadow:
+      0 0 8px var(--accent),
+      0 0 20px var(--accent-soft),
+      0 0 35px var(--accent-soft);
+  }
+
+
+  /* Extra glow around avatar */
+  .profile-card:hover .avatar-wrap {
+    filter:
+      drop-shadow(0 0 6px var(--accent))
+      drop-shadow(0 0 14px var(--accent-soft));
+  }
+
+
+  /* -------------------------------------------------------
+     PROFILE NAME GLOW
+  ------------------------------------------------------- */
+
+  .profile-card:hover h1 {
+    /*
+      IMPORTANT:
+      Keep the text color from the current theme.
+
+      Light → dark text
+      Dark  → white text
+    */
+
+    color: var(--text-primary);
+
+    text-shadow:
+      0 0 6px var(--accent-soft),
+      0 0 15px var(--accent-soft),
+      0 0 30px var(--accent-soft);
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 520px) {
+
+  .app-shell {
+    padding: 32px 16px;
+
+    gap: 22px;
+  }
+
+  .profile-card {
+    padding: 22px;
+
+    border-radius: 22px;
+  }
+
+  .profile-header {
+    align-items: flex-start;
+
+    gap: 14px;
+  }
+
+  .avatar {
+    width: 72px;
+    height: 72px;
+  }
+
+  .profile-card h1 {
+    font-size: 1.35rem;
+  }
+
+  .role {
+    font-size: 0.92rem;
+  }
+
+  .bio {
+    margin-top: 20px;
+
+    font-size: 0.95rem;
+  }
+
+  .stats {
+    gap: 7px;
+  }
+
+  .stat {
+    padding: 12px 6px;
+  }
+
+  .stat dt {
+    font-size: 0.68rem;
+  }
+
+  .stat dd {
+    font-size: 0.95rem;
+  }
+
+  .card-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .app-shell,
+  .profile-card,
+  .profile-card h1,
+  .profile-card .avatar,
+  .profile-card .avatar-wrap,
+  .theme-toggle,
+  .card-actions button,
+  .stat {
+    transition: none !important;
+  }
+
+  .profile-card {
+    transform: none !important;
+  }
+
+  .profile-card > * {
+    transform: none;
+  }
+}
